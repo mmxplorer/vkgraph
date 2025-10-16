@@ -1,0 +1,55 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "widgets_getComments_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "posts": {
+              "type": "array",
+              "items": {
+                "$ref": "../widgets/objects.json#/definitions/widgets_widget_comment"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "widgets_getPages_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "pages": {
+              "type": "array",
+              "items": {
+                "$ref": "../widgets/objects.json#/definitions/widgets_widget_page"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}

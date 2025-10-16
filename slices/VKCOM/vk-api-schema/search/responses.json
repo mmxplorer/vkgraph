@@ -1,0 +1,38 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "search_getHints_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "minimum": 0,
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../search/objects.json#/definitions/search_hint"
+              },
+              "required": true
+            },
+            "suggested_queries": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}

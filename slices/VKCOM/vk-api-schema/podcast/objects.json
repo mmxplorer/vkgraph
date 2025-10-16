@@ -1,0 +1,45 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - objects",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - objects",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "podcast_cover": {
+      "type": "object",
+      "properties": {
+        "sizes": {
+          "type": "array",
+          "items": {
+            "$ref": "../photos/objects.json#/definitions/photos_photo_sizes"
+          }
+        }
+      }
+    },
+    "podcast_external_data": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Url of the podcast page"
+        },
+        "owner_url": {
+          "type": "string",
+          "description": "Url of the podcasts owner community"
+        },
+        "title": {
+          "type": "string",
+          "description": "Podcast title"
+        },
+        "owner_name": {
+          "type": "string",
+          "description": "Name of the podcasts owner community"
+        },
+        "cover": {
+          "$ref": "../podcast/objects.json#/definitions/podcast_cover",
+          "description": "Podcast cover"
+        }
+      }
+    }
+  }
+}

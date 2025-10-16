@@ -1,0 +1,319 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "apps_addSnippet_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "snippet_id": {
+              "type": "integer",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_created_group_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "group_id": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1,
+              "maximum": 25,
+              "entity": "groups",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_getCatalog_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../apps/objects.json#/definitions/apps_catalog_list",
+          "required": true
+        }
+      }
+    },
+    "apps_getFriendsList_extended_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../users/objects.json#/definitions/users_user_full"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_getFriendsList_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64",
+                "entity": "owner"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_getLeaderboard_extended_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../apps/objects.json#/definitions/apps_leaderboard"
+              },
+              "required": true
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "$ref": "../users/objects.json#/definitions/users_user"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_getLeaderboard_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../apps/objects.json#/definitions/apps_leaderboard"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_getMiniAppPolicies_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "privacy_policy": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL of the app's privacy policy"
+            },
+            "terms": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL of the app's terms"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_getScopes_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../apps/objects.json#/definitions/apps_scope"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_getScore_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "integer",
+          "description": "Score number",
+          "required": true
+        }
+      }
+    },
+    "apps_getSnippets_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../apps/objects.json#/definitions/apps_custom_snippet"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_getTestingGroups_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../apps/objects.json#/definitions/apps_testing_group"
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_get_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number of applications",
+              "minimum": 0,
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "description": "List of applications",
+              "items": {
+                "$ref": "../apps/objects.json#/definitions/apps_app"
+              },
+              "required": true
+            },
+            "profiles": {
+              "type": "array",
+              "description": "List of friends profiles, used only when return_friends=true",
+              "items": {
+                "$ref": "../users/objects.json#/definitions/users_user_full"
+              }
+            },
+            "groups": {
+              "type": "array",
+              "description": "List of groups, used only when extended=true",
+              "items": {
+                "$ref": "../groups/objects.json#/definitions/groups_group_full"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_image_upload_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "hash": {
+              "type": "string",
+              "description": "Uploading hash"
+            },
+            "image": {
+              "type": "string",
+              "description": "Uploaded photo data"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_isNotificationsAllowed_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "is_allowed": {
+              "description": "Whether notifications are allowed for current user from concrete app or not",
+              "type": "boolean",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "apps_sendRequest_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "integer",
+          "description": "Request ID",
+          "required": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "name": "@project-tools/storybook-addon-cartesian",
+  "version": "1.0.0",
+  "main": "src/index.tsx",
+  "scripts": {
+    "build": "echo no build",
+    "test": "echo no test",
+    "test:ci": "echo no test:ci"
+  },
+  "dependencies": {
+    "@storybook/icons": "^1.6.0",
+    "@storybook/react": "9.1.10",
+    "storybook": "9.1.10"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

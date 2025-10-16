@@ -1,0 +1,8 @@
+.rpt2_cache
+.idea
+.vscode
+node_modules
+coverage
+yarn-error.log
+package-lock.json
+dist/

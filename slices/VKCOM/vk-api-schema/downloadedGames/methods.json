@@ -1,0 +1,37 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - methods",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - methods",
+  "termsOfService": "https://dev.vk.com/rules",
+  "methods": [
+    {
+      "name": "downloadedGames.getPaidStatus",
+      "access_token_type": [
+        "user"
+      ],
+      "parameters": [
+        {
+          "name": "user_id",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0,
+          "entity": "owner"
+        }
+      ],
+      "responses": {
+        "response": {
+          "$ref": "../downloadedGames/responses.json#/definitions/downloadedGames_paid_status_response"
+        }
+      },
+      "errors": [
+        {
+          "$ref": "../errors.json#/errors/api_error_action_failed"
+        },
+        {
+          "$ref": "../errors.json#/errors/api_error_not_found"
+        }
+      ]
+    }
+  ]
+}

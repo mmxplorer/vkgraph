@@ -1,0 +1,136 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - objects",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - objects",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "database_cities_fields": {
+      "type": "string"
+    },
+    "database_city": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "../base/objects.json#/definitions/base_object"
+        },
+        {
+          "properties": {
+            "area": {
+              "type": "string",
+              "description": "Area title"
+            },
+            "region": {
+              "type": "string",
+              "description": "Region title"
+            },
+            "important": {
+              "description": "Information whether the city is included in important cities list",
+              "$ref": "../base/objects.json#/definitions/base_bool_int"
+            }
+          }
+        }
+      ]
+    },
+    "database_city_by_id": {
+      "type": "object",
+      "$ref": "../base/objects.json#/definitions/base_object"
+    },
+    "database_faculty": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Faculty ID"
+        },
+        "title": {
+          "type": "string",
+          "description": "Faculty title"
+        }
+      }
+    },
+    "database_language_full": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Language ID",
+          "required": true
+        },
+        "native_name": {
+          "type": "string",
+          "description": "Language native name",
+          "required": true
+        }
+      }
+    },
+    "database_region": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Region ID"
+        },
+        "title": {
+          "type": "string",
+          "description": "Region title"
+        }
+      }
+    },
+    "database_school": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "School ID"
+        },
+        "title": {
+          "type": "string",
+          "description": "School title"
+        }
+      }
+    },
+    "database_school_class": {
+      "type": "object",
+      "$ref": "../base/objects.json#/definitions/base_object"
+    },
+    "database_station": {
+      "type": "object",
+      "properties": {
+        "city_id": {
+          "type": "integer",
+          "description": "City ID",
+          "minimum": 1
+        },
+        "color": {
+          "type": "string",
+          "description": "Hex color code without #"
+        },
+        "id": {
+          "type": "integer",
+          "description": "Station ID",
+          "minimum": 1,
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Station name",
+          "required": true
+        }
+      }
+    },
+    "database_university": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "University ID"
+        },
+        "title": {
+          "type": "string",
+          "description": "University title"
+        }
+      }
+    }
+  }
+}

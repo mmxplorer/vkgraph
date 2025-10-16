@@ -1,0 +1,87 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "orders_changeState_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "string",
+          "description": "New state",
+          "required": true
+        }
+      }
+    },
+    "orders_getAmount_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../orders/objects.json#/definitions/orders_amount"
+          },
+          "required": true
+        }
+      }
+    },
+    "orders_getById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../orders/objects.json#/definitions/orders_order"
+          },
+          "required": true
+        }
+      }
+    },
+    "orders_getUserSubscriptionById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../orders/objects.json#/definitions/orders_subscription",
+          "required": true
+        }
+      }
+    },
+    "orders_getUserSubscriptions_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../orders/objects.json#/definitions/orders_subscription"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "orders_get_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../orders/objects.json#/definitions/orders_order"
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}

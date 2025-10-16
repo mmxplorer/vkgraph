@@ -1,0 +1,30 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - objects",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - objects",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "stickers_image_set": {
+      "type": "object",
+      "properties": {
+        "base_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Base URL for images in set",
+          "required": true
+        },
+        "version": {
+          "type": "integer",
+          "description": "Version number to be appended to the image URL"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "../base/objects.json#/definitions/base_image"
+          }
+        }
+      }
+    }
+  }
+}

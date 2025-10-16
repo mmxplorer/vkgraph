@@ -1,0 +1,127 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "prettyCards_create_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "owner_id": {
+              "type": "integer",
+              "description": "Owner ID of created pretty card",
+              "entity": "owner",
+              "format": "int64",
+              "required": true
+            },
+            "card_id": {
+              "type": "string",
+              "description": "Card ID of created pretty card",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "prettyCards_delete_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "owner_id": {
+              "type": "integer",
+              "description": "Owner ID of deleted pretty card",
+              "entity": "owner",
+              "format": "int64",
+              "required": true
+            },
+            "card_id": {
+              "type": "string",
+              "description": "Card ID of deleted pretty card",
+              "required": true
+            },
+            "error": {
+              "type": "string",
+              "description": "Error reason if error happened"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "prettyCards_edit_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "owner_id": {
+              "type": "integer",
+              "description": "Owner ID of edited pretty card",
+              "entity": "owner",
+              "format": "int64",
+              "required": true
+            },
+            "card_id": {
+              "type": "string",
+              "description": "Card ID of edited pretty card",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "prettyCards_getById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../prettyCards/objects.json#/definitions/prettyCards_prettyCardOrError"
+          },
+          "required": true
+        }
+      }
+    },
+    "prettyCards_getUploadURL_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "string",
+          "description": "Upload URL",
+          "required": true
+        }
+      }
+    },
+    "prettyCards_get_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../prettyCards/objects.json#/definitions/prettyCards_prettyCard"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - objects",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - objects",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "notifications_feedback": {
+      "type": "object",
+      "properties": {
+        "attachments": {
+          "type": "array",
+          "items": {
+            "$ref": "../wall/objects.json#/definitions/wall_wallpost_attachment"
+          }
+        },
+        "from_id": {
+          "type": "integer",
+          "description": "Reply author's ID"
+        },
+        "geo": {
+          "$ref": "../base/objects.json#/definitions/base_geo"
+        },
+        "id": {
+          "type": "integer",
+          "description": "Item ID"
+        },
+        "likes": {
+          "$ref": "../base/objects.json#/definitions/base_likes_info"
+        },
+        "text": {
+          "type": "string",
+          "description": "Reply text"
+        },
+        "to_id": {
+          "type": "integer",
+          "description": "Wall owner's ID"
+        }
+      }
+    },
+    "notifications_notification": {
+      "type": "object",
+      "properties": {
+        "inner_type": {
+          "type": "string",
+          "required": true,
+          "enum": [
+            "notifications_notification"
+          ],
+          "default": "notifications_notification"
+        },
+        "date": {
+          "type": "integer",
+          "description": "Date when the event has been occurred"
+        },
+        "feedback": {
+          "$ref": "../notifications/objects.json#/definitions/notifications_feedback"
+        },
+        "parent": {
+          "$ref": "../notifications/objects.json#/definitions/notifications_notification"
+        },
+        "reply": {
+          "$ref": "../notifications/objects.json#/definitions/notifications_reply"
+        },
+        "type": {
+          "type": "string",
+          "description": "Notification type"
+        }
+      }
+    },
+    "notifications_notification_item": {
+      "type": "object",
+      "$ref": "../notifications/objects.json#/definitions/notifications_notification"
+    },
+    "notifications_reply": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "integer",
+          "description": "Date when the reply has been created in Unixtime"
+        },
+        "id": {
+          "type": "integer",
+          "description": "Reply ID"
+        },
+        "text": {
+          "type": "integer",
+          "description": "Reply text"
+        }
+      }
+    },
+    "notifications_send_message_error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "enum": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "enumNames": [
+            "notifications disabled",
+            "flood control per hour",
+            "flood control per day",
+            "app is not installed"
+          ],
+          "description": "Error code"
+        },
+        "description": {
+          "type": "string",
+          "description": "Error description"
+        }
+      }
+    },
+    "notifications_send_message_item": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "description": "User ID",
+          "entity": "owner",
+          "format": "int64"
+        },
+        "status": {
+          "type": "boolean",
+          "description": "Notification status"
+        },
+        "error": {
+          "$ref": "../notifications/objects.json#/definitions/notifications_send_message_error"
+        }
+      }
+    }
+  }
+}

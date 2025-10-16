@@ -1,0 +1,507 @@
+import { createElement } from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { Icon12Add } from '@vkontakte/icons';
+import { noop } from '@vkontakte/vkjs';
+import { baselineComponent } from '../../testing/utils';
+import { Button } from '../Button/Button';
+import { Card } from '../Card/Card';
+import { CardScroll } from '../CardScroll/CardScroll';
+import { Group } from '../Group/Group';
+import { Panel } from '../Panel/Panel';
+import { PanelHeader } from '../PanelHeader/PanelHeader';
+import { View } from '../View/View';
+import { Touch } from './Touch';
+
+// Настоящего Touch нет в jsdom: https://github.com/jsdom/jsdom/issues/1508
+const asClientPos = ([clientX = 0, clientY = 0] = []): Touch & MouseEvent =>
+  ({ clientX, clientY }) as any;
+
+function fireMouseSwipe(
+  e: HTMLElement,
+  [start, ...move]: any[],
+  ops: { startEl?: HTMLElement } = {},
+) {
+  fireEvent.mouseDown(ops.startEl || e, asClientPos(start));
+  move.forEach((p) => fireEvent.mouseMove(e, asClientPos(p)));
+  fireEvent.mouseUp(e, asClientPos(move[move.length - 1]));
+
+  // Если это <a href="..."> — временно уберём href, чтобы jsdom не пытался навигировать.
+  const isAnchor =
+    e instanceof HTMLElement && e.tagName.toLowerCase() === 'a' && e.hasAttribute('href');
+  const hrefBackup = isAnchor ? e.getAttribute('href') : null;
+  if (isAnchor) {
+    e.removeAttribute('href');
+  }
+
+  try {
+    return fireEvent.click(e, asClientPos(move[move.length - 1]));
+  } finally {
+    // восстановим href в любом случае
+    if (isAnchor && hrefBackup !== null) {
+      e.setAttribute('href', hrefBackup);
+    }
+  }
+}
+
+function fireTouchSwipe(e: HTMLElement, [start, ...move]: any[], { end = true } = {}) {
+  let prevTouches: number[][] = [];
+  const eventProps = (p: any) => {
+    const touches: number[][] = Array.isArray(p[0]) ? p : [p];
+    const changedTouches = touches
+      .filter((t, i) => !prevTouches[i] || prevTouches[i].some((pos, j) => t[j] !== pos))
+      .concat(prevTouches.slice(touches.length));
+    if (!changedTouches.length) {
+      throw new Error('no changed touches');
+    }
+    prevTouches = touches;
+    return {
+      changedTouches: changedTouches.map(asClientPos as any),
+      touches: touches.map(asClientPos as any),
+    };
+  };
+  fireEvent.touchStart(e, eventProps(start));
+  move.forEach((p) => fireEvent.touchMove(e, eventProps(p)));
+  const fireEnd = () => fireEvent.touchEnd(e, eventProps([]));
+  end && fireEnd();
+  return fireEnd;
+}
+
+const threshold = 10;
+const slideRight = (target: HTMLElement) =>
+  fireMouseSwipe(target, [
+    [0, 0],
+    [threshold, 0],
+  ]);
+
+describe('Touch', () => {
+  baselineComponent(Touch);
+
+  it.each([true, false])('use stopPropagation={%s}', (stopPropagation) => {
+    const onMouseDown = vi.fn();
+    const result = render(
+      <div data-testid="container" onMouseDown={onMouseDown}>
+        <Touch stopPropagation={stopPropagation} data-testid="touch" />
+      </div>,
+    );
+    fireEvent.mouseDown(result.getByTestId('touch'));
+    expect(onMouseDown).toHaveBeenCalledTimes(stopPropagation ? 0 : 1);
+  });
+
+  it('does not leak listeners when unmounting during gesture', () => {
+    let moved = false;
+    const { unmount } = render(<Touch onMove={() => (moved = true)} data-testid="touch" />);
+    fireEvent.mouseDown(screen.getByTestId('touch'), { clientX: 0 });
+    unmount();
+    fireEvent.mouseMove(document.body, { clientX: threshold });
+    expect(moved).toBe(false);
+  });
+
+  it('should ignore compatible mousedown event after touch', () => {
+    const onStart = vitest.fn();
+    const onMove = vitest.fn();
+    const onEnd = vitest.fn();
+    render(<Touch onStart={onStart} onMove={onMove} onEnd={onEnd} data-testid="touch" />);
+
+    const touch = screen.getByTestId('touch');
+    fireEvent.touchStart(touch, {
+      changedTouches: [{ clientX: 0, clientY: 0 }],
+    });
+    fireEvent.mouseDown(touch, {
+      clientX: 0,
+      clientY: 0,
+    });
+    expect(onStart).toHaveBeenCalledTimes(1);
+
+    fireEvent.touchMove(touch, {
+      changedTouches: [{ clientX: 10, clientY: 0 }],
+    });
+    fireEvent.mouseMove(document.body, {
+      clientX: 10,
+      clientY: 0,
+    });
+    expect(onMove).toHaveBeenCalledTimes(1);
+
+    fireEvent.touchEnd(touch, {
+      changedTouches: [{ clientX: 10, clientY: 0 }],
+    });
+    fireEvent.mouseUp(document.body, {
+      clientX: 10,
+      clientY: 0,
+    });
+    expect(onEnd).toHaveBeenCalledTimes(1);
+  });
+
+  describe('prevents browser drag behavior', () => {
+    it.each(['img', 'a'])('for %s', (tag) => {
+      render(<Touch>{createElement(tag, { 'data-testid': '__el__' })}</Touch>);
+      const hasDefault = fireEvent.dragStart(screen.getByTestId('__el__'));
+      expect(hasDefault).toBe(false);
+    });
+    it('not for an explicitly draggable element', () => {
+      render(
+        <Touch>
+          <div draggable data-testid="__el__" />
+        </Touch>,
+      );
+      const hasDefault = fireEvent.dragStart(screen.getByTestId('__el__'));
+      expect(hasDefault).toBe(true);
+    });
+  });
+
+  describe('hover', () => {
+    it('calls onEnter / onLeave with mouse', () => {
+      const onEnter = vi.fn();
+      const onLeave = vi.fn();
+      render(<Touch data-testid="__t__" onEnter={onEnter} onLeave={onLeave} />);
+      fireEvent.mouseEnter(screen.getByTestId('__t__'));
+      expect(onEnter).toHaveBeenCalledTimes(1);
+      fireEvent.mouseLeave(screen.getByTestId('__t__'));
+      expect(onLeave).toHaveBeenCalledTimes(1);
+    });
+    it('simulates onLeave with touch', () => {
+      window['ontouchstart'] = null;
+      const onLeave = vi.fn();
+      render(<Touch data-testid="__t__" onLeave={onLeave} />);
+      fireTouchSwipe(screen.getByTestId('__t__'), [[0, 0]]);
+      expect(onLeave).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('handles slide gestures', () => {
+    const keys = [
+      'onStart',
+      'onStartX',
+      'onStartY',
+      'onMove',
+      'onMoveX',
+      'onMoveY',
+      'onEnd',
+      'onEndX',
+      'onEndY',
+    ] as const;
+    const makeHandlers = (): { [k in (typeof keys)[number]]: ReturnType<typeof vi.fn> } => {
+      return keys.reduce<any>((acc, k) => ({ ...acc, [k]: vi.fn() }), {});
+    };
+    describe.each(['touch', 'mouse'])('using %s', (input) => {
+      const fireGesture = input === 'touch' ? fireTouchSwipe : fireMouseSwipe;
+      if (input === 'touch') {
+        beforeEach(() => (window['ontouchstart'] = null));
+      }
+
+      it('check svg', () => {
+        const handlers = makeHandlers();
+        render(
+          <Touch {...handlers}>
+            <Icon12Add data-testid="__t__" />
+          </Touch>,
+        );
+        fireGesture(screen.getByTestId('__t__'), [
+          [20, 20],
+          [20, 26],
+          [20, 30],
+        ]);
+        expect(handlers.onStart).toHaveBeenCalledTimes(1);
+        expect(handlers.onMove).toHaveBeenCalledTimes(2);
+        expect(handlers.onEnd).toHaveBeenCalledTimes(1);
+      });
+
+      describe('callback gesture params', () => {
+        const emptyGesture = (x: number, y: number) =>
+          expect.objectContaining({
+            startX: x,
+            startY: y,
+            startT: expect.any(Date),
+            duration: expect.any(Number),
+            isPressed: true,
+            isY: false,
+            isX: false,
+            isSlideX: false,
+            isSlideY: false,
+            isSlide: false,
+            shiftX: 0,
+            shiftY: 0,
+            shiftXAbs: 0,
+            shiftYAbs: 0,
+          });
+        it('has all gesture params in start handler', () => {
+          const handlers = makeHandlers();
+          render(<Touch {...handlers} data-testid="__t__" />);
+          fireGesture(screen.getByTestId('__t__'), [[20, 20]]);
+          expect(handlers.onStart).toHaveBeenCalledExactlyOnceWith(emptyGesture(20, 20));
+        });
+        it('has all params end gesture on clean tap', () => {
+          const handlers = makeHandlers();
+          render(<Touch {...handlers} data-testid="__t__" />);
+          fireGesture(screen.getByTestId('__t__'), [[20, 20]]);
+          expect(handlers.onEnd).toHaveBeenCalledExactlyOnceWith(emptyGesture(20, 20));
+        });
+      });
+
+      it.each([
+        ['left', [-3, 0]],
+        ['right', [3, 0]],
+        ['up', [0, -3]],
+        ['down', [0, 3]],
+      ])('detects slide %s', (_name, [vx, vy]) => {
+        const handlers = makeHandlers();
+        render(<Touch {...handlers} data-testid="__t__" />);
+        fireGesture(
+          screen.getByTestId('__t__'),
+          [0, 1, 2, 3].map((t) => [20 + vx * t, 20 + vy * t]),
+        );
+        expect(handlers.onStartX).toHaveBeenCalledTimes(1);
+        expect(handlers.onStartY).toHaveBeenCalledTimes(1);
+        expect(handlers.onMoveX).toHaveBeenCalledTimes(vx ? 2 : 0);
+        expect(handlers.onMoveY).toHaveBeenCalledTimes(vy ? 2 : 0);
+        expect(handlers.onEndX).toHaveBeenCalledTimes(vx ? 1 : 0);
+        expect(handlers.onEndY).toHaveBeenCalledTimes(vy ? 1 : 0);
+      });
+
+      it('does not detect slide on small movement', () => {
+        const handlers = makeHandlers();
+        render(<Touch {...handlers} data-testid="__t__" />);
+        fireGesture(screen.getByTestId('__t__'), [
+          [20, 20],
+          [17, 23],
+          [23, 20],
+          [20, 17],
+        ]);
+        expect(handlers.onStartY).toHaveBeenCalledTimes(1);
+        expect(handlers.onMoveY).not.toHaveBeenCalled();
+        expect(handlers.onEndY).not.toHaveBeenCalled();
+      });
+
+      it('does not detect slide if onMove[X|Y] not passed', () => {
+        const { onMoveX, onMoveY, onMove, ...handlers } = makeHandlers();
+        render(<Touch {...handlers} data-testid="__t__" />);
+        fireGesture(screen.getByTestId('__t__'), [
+          [20, 20],
+          [20, 30],
+        ]);
+        expect(handlers.onEnd).toHaveBeenCalledExactlyOnceWith(
+          expect.objectContaining({
+            isSlideX: false,
+            isSlideY: false,
+          }),
+        );
+      });
+
+      it('snaps slide direction', () => {
+        const handlers = makeHandlers();
+        render(<Touch {...handlers} data-testid="__t__" />);
+        fireGesture(screen.getByTestId('__t__'), [
+          [20, 20],
+          [20, 30],
+          [20, 20],
+          [30, 20],
+        ]);
+        expect(handlers.onMoveX).not.toHaveBeenCalled();
+        expect(handlers.onEndX).not.toHaveBeenCalled();
+        expect(handlers.onEnd).toHaveBeenCalledExactlyOnceWith(
+          expect.objectContaining({
+            isSlide: true,
+            isSlideY: true,
+            isSlideX: false,
+          }),
+        );
+      });
+
+      if (input === 'touch') {
+        it('stops gesture if multi-touch', () => {
+          const handlers = makeHandlers();
+          render(<Touch {...handlers} data-testid="__t__" />);
+          fireGesture(screen.getByTestId('__t__'), [
+            [20, 20],
+            [20, 26],
+            [
+              [20, 26],
+              [25, 25],
+            ],
+            [
+              [20, 26],
+              [25, 30],
+            ],
+          ]);
+          expect(handlers.onMove).toHaveBeenCalledTimes(1);
+          expect(handlers.onEnd).toHaveBeenCalledExactlyOnceWith(
+            expect.objectContaining({ shiftX: 0, shiftY: 6 }),
+          );
+        });
+      }
+
+      if (input === 'mouse') {
+        it('detects slide under target change', () => {
+          const handlers = makeHandlers();
+          render(<Touch {...handlers} data-testid="__t__" />);
+          fireMouseSwipe(
+            document.body,
+            [
+              [20, 20],
+              [20, 26],
+              [20, 30],
+            ],
+            { startEl: screen.getByTestId('__t__') },
+          );
+          expect(handlers.onStart).toHaveBeenCalledTimes(1);
+          expect(handlers.onMoveY).toHaveBeenCalledTimes(2);
+          expect(handlers.onEnd).toHaveBeenCalledExactlyOnceWith(
+            expect.objectContaining({ isSlideY: true, shiftY: 10 }),
+          );
+        });
+      }
+      if (input === 'touch') {
+        // https://stackoverflow.com/questions/33298828
+        it('fires end if touchStart element removed', () => {
+          const handlers = makeHandlers();
+          const h = render(
+            <Touch {...handlers} data-testid="__t__">
+              <div data-testid="__c__" />
+            </Touch>,
+          );
+          const fireEnd = fireTouchSwipe(
+            screen.getByTestId('__c__'),
+            [
+              [0, 0],
+              [10, 20],
+            ],
+            { end: false },
+          );
+          h.rerender(<Touch {...handlers} data-testid="__t__" />);
+          fireEnd();
+          expect(handlers.onEnd).toHaveBeenCalledTimes(1);
+        });
+      }
+    });
+  });
+
+  describe('prevents link click after slide', () => {
+    it('with simple link', () => {
+      render(
+        <Touch noSlideClick onMove={noop}>
+          <a href="/hello" />
+        </Touch>,
+      );
+      const hasDefault = slideRight(screen.getByRole('link'));
+      expect(hasDefault).toBe(false);
+    });
+    it('on link child', () => {
+      render(
+        <Touch noSlideClick onMove={noop}>
+          <a href="/hello">
+            <div data-testid="xxx" />
+          </a>
+        </Touch>,
+      );
+      const hasDefault = slideRight(screen.getByTestId('xxx'));
+      expect(hasDefault).toBe(false);
+    });
+    it('inside link', () => {
+      render(
+        <a href="/hello">
+          <Touch noSlideClick onMove={noop}>
+            <div data-testid="xxx" />
+          </Touch>
+        </a>,
+      );
+      const hasDefault = slideRight(screen.getByTestId('xxx'));
+      expect(hasDefault).toBe(false);
+    });
+    it('when Touch is link', () => {
+      render(
+        <Touch noSlideClick Component="a" onMove={noop}>
+          <div data-testid="xxx" />
+        </Touch>,
+      );
+      const hasDefault = slideRight(screen.getByTestId('xxx'));
+      expect(hasDefault).toBe(false);
+    });
+  });
+
+  describe('prevents click after slide', () => {
+    it('does not prevent link click', () => {
+      render(
+        <Touch>
+          <a href="/hello" />
+        </Touch>,
+      );
+      const hasDefault = fireMouseSwipe(screen.getByRole('link'), [
+        [10, 10],
+        [10, 10],
+      ]);
+      expect(hasDefault).toBe(true);
+    });
+    it('handles onClickCapture', async () => {
+      const cb = vi.fn(() => null);
+      render(<Touch onClickCapture={cb} onMove={noop} data-testid="touch" />);
+      fireEvent.click(screen.getByTestId('touch'));
+      expect(cb).toHaveBeenCalledTimes(1);
+      cb.mockReset();
+      slideRight(screen.getByTestId('touch'));
+      expect(cb).toHaveBeenCalledTimes(1);
+    });
+    it('does not fire click after slide if noSlideClick=true', () => {
+      const clicked = new Set();
+      render(
+        <div onClick={() => clicked.add('container')}>
+          <Touch
+            onMove={noop}
+            onClickCapture={() => clicked.add('touchCapture')}
+            onClick={() => clicked.add('touch')}
+            noSlideClick
+          >
+            <div onClick={() => clicked.add('content')} data-testid="inner" />
+          </Touch>
+        </div>,
+      );
+      slideRight(screen.getByTestId('inner'));
+      expect(clicked).toEqual(new Set());
+    });
+    it('handles click after slide', async () => {
+      const cb = vi.fn(() => null);
+      render(<Touch onClickCapture={cb} data-testid="touch" />);
+      slideRight(screen.getByTestId('touch'));
+      fireEvent.click(screen.getByTestId('touch'));
+      expect(cb).toHaveBeenCalled();
+    });
+    it('does not prevent click of a button after slide of a parent on mobile', () => {
+      window['ontouchstart'] = null;
+      render(
+        <View activePanel="card">
+          <Panel id="card">
+            <PanelHeader>CardScroll</PanelHeader>
+            <Group description="Внутри Group">
+              <CardScroll size="s">
+                <Card>
+                  <div style={{ paddingBottom: '66%' }} />
+                </Card>
+                <Card data-testid="card">
+                  <div style={{ paddingBottom: '66%' }}>
+                    <Button data-testid="button" href="vk.com" />
+                  </div>
+                </Card>
+                <Card>
+                  <div style={{ paddingBottom: '66%' }} />
+                </Card>
+                <Card>
+                  <div style={{ paddingBottom: '66%' }} />
+                </Card>
+                <Card>
+                  <div style={{ paddingBottom: '66%' }} />
+                </Card>
+                <Card>
+                  <div style={{ paddingBottom: '66%' }} />
+                </Card>
+              </CardScroll>
+            </Group>
+          </Panel>
+        </View>,
+      );
+      fireTouchSwipe(screen.getByTestId('card'), [
+        [0, 0],
+        [6, 0],
+      ]);
+      const hasDefault = fireEvent.click(screen.getByTestId('button'));
+      expect(hasDefault).toBe(true);
+    });
+  });
+});

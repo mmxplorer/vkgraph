@@ -1,0 +1,89 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "store_getFavoriteStickers_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Count of favorite stickers",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../base/objects.json#/definitions/base_sticker_new"
+              },
+              "description": "List of sticker objects",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "store_getProducts_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../store/objects.json#/definitions/store_product"
+              },
+              "required": true
+            },
+            "count": {
+              "type": "integer",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "store_getStickersKeywords_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "minimum": 0,
+              "required": true
+            },
+            "dictionary": {
+              "type": "array",
+              "items": {
+                "$ref": "../store/objects.json#/definitions/store_stickers_keyword"
+              },
+              "required": true
+            },
+            "chunks_count": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Total count of chunks to load"
+            },
+            "chunks_hash": {
+              "type": "string",
+              "minimum": 1,
+              "description": "Chunks version hash"
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}

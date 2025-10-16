@@ -1,0 +1,9 @@
+.StyleGuideDesktop {
+  height: 100%;
+}
+
+@media (--sizeX-compact) {
+  .StyleGuideDesktop {
+    display: none;
+  }
+}

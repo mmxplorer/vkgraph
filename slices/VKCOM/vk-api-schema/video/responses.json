@@ -1,0 +1,583 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "video_addAlbum_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "album_id": {
+              "type": "integer",
+              "description": "Created album ID",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_changeVideoAlbums_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "required": true
+        }
+      }
+    },
+    "video_createComment_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "integer",
+          "description": "Created comment ID",
+          "required": true
+        }
+      }
+    },
+    "video_edit_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "success": {
+              "$ref": "../base/objects.json#/definitions/base_bool_int",
+              "required": true
+            },
+            "access_key": {
+              "type": "string",
+              "description": "Access key for access link"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_getAlbumById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../video/objects.json#/definitions/video_video_album_full",
+          "required": true
+        }
+      }
+    },
+    "video_getAlbumsByVideo_extended_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../video/objects.json#/definitions/video_video_album_full"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_getAlbumsByVideo_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "description": "Album ID"
+          },
+          "required": true
+        }
+      }
+    },
+    "video_getAlbums_extended_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../video/objects.json#/definitions/video_video_album_full"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_getAlbums_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../video/objects.json#/definitions/video_video_album"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_getComments_extended_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../wall/objects.json#/definitions/wall_wall_comment"
+              },
+              "required": true
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "$ref": "../users/objects.json#/definitions/users_user_full"
+              },
+              "required": true
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "$ref": "../groups/objects.json#/definitions/groups_group_full"
+              },
+              "required": true
+            },
+            "current_level_count": {
+              "type": "integer",
+              "description": "Count of replies of current level"
+            },
+            "can_post": {
+              "type": "boolean",
+              "description": "Information whether current user can comment the post"
+            },
+            "show_reply_button": {
+              "type": "boolean"
+            },
+            "groups_can_post": {
+              "type": "boolean",
+              "description": "Information whether groups can comment the post"
+            },
+            "real_offset": {
+              "type": "integer"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_getComments_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../wall/objects.json#/definitions/wall_wall_comment"
+              },
+              "required": true
+            },
+            "current_level_count": {
+              "type": "integer",
+              "description": "Count of replies of current level"
+            },
+            "can_post": {
+              "type": "boolean",
+              "description": "Information whether current user can comment the post"
+            },
+            "show_reply_button": {
+              "type": "boolean"
+            },
+            "groups_can_post": {
+              "type": "boolean",
+              "description": "Information whether groups can comment the post"
+            },
+            "real_offset": {
+              "type": "integer"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_getLongPollServer_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_getOembed_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "Version of oEmbed (always 1.0)",
+              "required": true
+            },
+            "type": {
+              "type": "string",
+              "description": "Type of embed content (always video)",
+              "required": true
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of video"
+            },
+            "author_name": {
+              "type": "string",
+              "description": "Author of video"
+            },
+            "html": {
+              "type": "string",
+              "description": "HTML of player",
+              "required": true
+            },
+            "width": {
+              "type": "integer",
+              "description": "Width of player"
+            },
+            "height": {
+              "type": "integer",
+              "description": "Height of player"
+            },
+            "provider_name": {
+              "type": "string",
+              "description": "Name of video provider"
+            },
+            "provider_url": {
+              "type": "string",
+              "description": "Video provider url"
+            },
+            "thumbnail_url": {
+              "type": "string",
+              "description": "Video thumbnail url"
+            },
+            "thumbnail_width": {
+              "type": "integer",
+              "description": "Video thumbnail width"
+            },
+            "thumbnail_height": {
+              "type": "integer",
+              "description": "Video thumbnail height"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_getThumbUploadUrl_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "upload_url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Url for thumb upload",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_get_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../video/objects.json#/definitions/video_video_full"
+              },
+              "required": true
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "$ref": "../users/objects.json#/definitions/users_user_full"
+              }
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "$ref": "../groups/objects.json#/definitions/groups_group_full"
+              }
+            },
+            "max_attached_short_videos": {
+              "type": "integer",
+              "description": "Max attached short videos"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_liveGetCategories_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../video/objects.json#/definitions/video_live_category"
+          },
+          "required": true
+        }
+      }
+    },
+    "video_saveUploadedThumb_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "image": {
+              "type": "array",
+              "items": {
+                "$ref": "../video/objects.json#/definitions/video_video_image"
+              }
+            },
+            "photo_id": {
+              "type": "integer",
+              "format": "int64",
+              "description": "ID of uploaded thumb",
+              "required": true
+            },
+            "photo_owner_id": {
+              "type": "integer",
+              "entity": "owner",
+              "format": "int64",
+              "description": "Owner ID of uploaded thumb"
+            },
+            "photo_hash": {
+              "type": "string",
+              "description": "Hash of uploaded thumb",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_save_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../video/objects.json#/definitions/video_save_result",
+          "required": true
+        }
+      }
+    },
+    "video_search_extended_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../video/objects.json#/definitions/video_video_full"
+              },
+              "required": true
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "$ref": "../users/objects.json#/definitions/users_user"
+              },
+              "required": true
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "$ref": "../groups/objects.json#/definitions/groups_group_full"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_search_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../video/objects.json#/definitions/video_video_full"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_startStreaming_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "owner_id": {
+              "type": "integer",
+              "entity": "owner",
+              "format": "int64",
+              "description": "Owner ID of created video object",
+              "required": true
+            },
+            "video_id": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Video ID of created video object",
+              "required": true
+            },
+            "name": {
+              "type": "string",
+              "description": "Video title",
+              "required": true
+            },
+            "description": {
+              "type": "string",
+              "description": "Video description",
+              "required": true
+            },
+            "access_key": {
+              "type": "string",
+              "description": "Video access key",
+              "required": true
+            },
+            "stream": {
+              "$ref": "../video/objects.json#/definitions/video_stream_input_params",
+              "required": true
+            },
+            "post_id": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_stopStreaming_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "unique_viewers": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "video_upload_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "size": {
+              "type": "integer",
+              "description": "Video size"
+            },
+            "video_id": {
+              "type": "integer",
+              "description": "Video ID"
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}

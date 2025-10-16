@@ -1,0 +1,605 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "market_addAlbum_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "market_album_id": {
+              "type": "integer",
+              "description": "Album ID"
+            },
+            "albums_count": {
+              "type": "integer",
+              "description": "Albums count"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_addPropertyVariant_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "variant_id": {
+              "type": "integer",
+              "minimum": 0,
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_addProperty_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "property_id": {
+              "type": "integer",
+              "minimum": 0,
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_add_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "market_item_id": {
+              "type": "integer",
+              "description": "Item ID",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_createComment_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "integer",
+          "description": "Comment ID",
+          "required": true
+        }
+      }
+    },
+    "market_getAlbumById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_album"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_getAlbums_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_album"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_getById_extended_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_item_full"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_getById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_item"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_getCategories_new_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_category_tree"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_getComments_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../wall/objects.json#/definitions/wall_wall_comment"
+              },
+              "required": true
+            },
+            "profiles": {
+              "type": "array",
+              "description": "List of users, available only if extended=true exists in query params",
+              "items": {
+                "$ref": "../users/objects.json#/definitions/users_user_full"
+              }
+            },
+            "groups": {
+              "type": "array",
+              "description": "List of groups, available only if extended=true exists in query params",
+              "items": {
+                "$ref": "../groups/objects.json#/definitions/groups_group_full"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_getFavesForAttach_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "market_items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_item"
+              },
+              "required": true
+            },
+            "next_from": {
+              "type": "integer",
+              "description": "Offset for using in next query"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_getGroupOrders_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "minimum": 0,
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_order"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_getOrderById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "order": {
+              "$ref": "../market/objects.json#/definitions/market_order"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_getOrderItems_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_order_item"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_getOrders_extended_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "minimum": 0,
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_order"
+              },
+              "required": true
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "$ref": "../groups/objects.json#/definitions/groups_group_full"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_getOrders_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "minimum": 0,
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_order"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_getProperties_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_property"
+              },
+              "required": true
+            },
+            "count": {
+              "type": "integer",
+              "minimum": 0,
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_get_extended_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_item_full"
+              },
+              "required": true
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_item_full"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_get_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_item"
+              },
+              "required": true
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_item"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_groupItems_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "item_group_id": {
+              "type": "integer",
+              "minimum": 0,
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_photo_id_bulk_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../market/objects.json#/definitions/market_upload_photo_data"
+          },
+          "required": true
+        }
+      }
+    },
+    "market_photo_id_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "photo_id": {
+              "type": "integer",
+              "description": "Photo ID",
+              "required": true
+            },
+            "photo": {
+              "$ref": "../photos/objects.json#/definitions/photos_photo"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_search_basic_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Current chunk size",
+              "required": true
+            },
+            "total": {
+              "type": "integer",
+              "description": "Total size",
+              "required": true
+            },
+            "has_more": {
+              "type": "boolean",
+              "description": "Next chunk present"
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_item_basic_with_group"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_search_extended_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "view_type": {
+              "$ref": "../market/objects.json#/definitions/market_services_view_type",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_item_full"
+              },
+              "required": true
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_item_full"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "market_search_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "view_type": {
+              "$ref": "../market/objects.json#/definitions/market_services_view_type",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_item"
+              },
+              "required": true
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "$ref": "../market/objects.json#/definitions/market_market_item"
+              }
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "$ref": "../groups/objects.json#/definitions/groups_group_full"
+              }
+            },
+            "filters": {
+              "$ref": "../market/objects.json#/definitions/market_global_search_filters"
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}

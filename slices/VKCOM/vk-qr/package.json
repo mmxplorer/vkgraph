@@ -1,0 +1,82 @@
+{
+  "name": "@vkontakte/vk-qr",
+  "version": "2.1.1",
+  "description": "QR Code generator",
+  "main": "dist/cjs/index.js",
+  "browser": "dist/umd/qrCodeGenerator.js",
+  "module": "dist/es/index.js",
+  "jsxnext:main": "dist/es/index.js",
+  "umdName": "qrCodeGenerator",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "test": "jest",
+    "watch": "rollup -c -w",
+    "build": "rimraf dist && NODE_ENV=production rollup -c",
+    "build:types": "rimraf dist/types && tsc src/index.ts",
+    "lint": "eslint src/*.ts",
+    "size": "size-limit",
+    "prepublish": "yarn build"
+  },
+  "keywords": [],
+  "author": "vk.ru",
+  "license": "MIT",
+  "repository": "VKCOM/vk-qr",
+  "jest": {
+    "testMatch": [
+      "<rootDir>/tests/**/*.js"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@size-limit/preset-small-lib": "^11.0.0",
+    "@types/jest": "^24.0.15",
+    "@types/prettier": "^1.16.4",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "convert-svg-to-png": "^0.6.4",
+    "cross-env": "^5.2.0",
+    "eslint": "^6.0.1",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "fast-xml-parser": "^3.12.17",
+    "jest": "^24.9.0",
+    "jest-image-snapshot": "^2.9.0",
+    "js-beautify": "^1.10.0",
+    "prettier": "^1.18.2",
+    "rimraf": "^2.6.1",
+    "rollup": "^1.16.7",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-bundle-size": "^1.0.3",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.22.0",
+    "rollup-plugin-uglify": "^6.0.2",
+    "size-limit": "^11.0.0",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3",
+    "xml-js": "^1.6.11"
+  },
+  "size-limit": [
+    {
+      "path": "dist/cjs/index.js"
+    },
+    {
+      "path": "dist/es/index.js"
+    },
+    {
+      "path": "dist/umd/qrCodeGenerator.js"
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

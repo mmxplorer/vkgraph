@@ -1,0 +1,84 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "notifications_get_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../notifications/objects.json#/definitions/notifications_notification_item"
+              },
+              "required": true
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "$ref": "../users/objects.json#/definitions/users_user"
+              }
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "$ref": "../groups/objects.json#/definitions/groups_group"
+              }
+            },
+            "last_viewed": {
+              "type": "integer",
+              "description": "Time when user has been checked notifications last time"
+            },
+            "photos": {
+              "type": "array",
+              "items": {
+                "$ref": "../photos/objects.json#/definitions/photos_photo"
+              }
+            },
+            "videos": {
+              "type": "array",
+              "items": {
+                "$ref": "../video/objects.json#/definitions/video_video_full"
+              }
+            },
+            "apps": {
+              "type": "array",
+              "items": {
+                "$ref": "../apps/objects.json#/definitions/apps_app"
+              }
+            },
+            "next_from": {
+              "type": "string"
+            },
+            "ttl": {
+              "type": "integer"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "notifications_sendMessage_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../notifications/objects.json#/definitions/notifications_send_message_item"
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}

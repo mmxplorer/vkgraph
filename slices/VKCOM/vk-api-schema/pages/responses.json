@@ -1,0 +1,133 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "pages_getHistory_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../pages/objects.json#/definitions/pages_wikipage_history"
+          },
+          "required": true
+        }
+      }
+    },
+    "pages_getTitles_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../pages/objects.json#/definitions/pages_wikipage"
+          },
+          "required": true
+        }
+      }
+    },
+    "pages_getVersion_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "required": true
+            },
+            "page_id": {
+              "type": "integer",
+              "required": true
+            },
+            "group_id": {
+              "type": "integer",
+              "format": "int32",
+              "required": true,
+              "entity": "groups"
+            },
+            "title": {
+              "type": "string",
+              "required": true
+            },
+            "source": {
+              "type": "string",
+              "required": true
+            },
+            "current_user_can_edit": {
+              "type": "integer",
+              "required": true
+            },
+            "who_can_view": {
+              "type": "integer",
+              "required": true
+            },
+            "who_can_edit": {
+              "type": "integer",
+              "required": true
+            },
+            "version_created": {
+              "type": "integer",
+              "required": true
+            },
+            "creator_id": {
+              "type": "integer"
+            },
+            "parent": {
+              "type": "string"
+            },
+            "parent2": {
+              "type": "string"
+            },
+            "html": {
+              "type": "string"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "pages_get_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../pages/objects.json#/definitions/pages_wikipage_full",
+          "required": true
+        }
+      }
+    },
+    "pages_parseWiki_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "string",
+          "description": "HTML source",
+          "required": true
+        }
+      }
+    },
+    "pages_saveAccess_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "integer",
+          "description": "Page ID",
+          "required": true
+        }
+      }
+    },
+    "pages_save_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "integer",
+          "description": "Page ID",
+          "required": true
+        }
+      }
+    }
+  }
+}

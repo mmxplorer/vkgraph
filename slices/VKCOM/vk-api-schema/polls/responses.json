@@ -1,0 +1,72 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "polls_create_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../polls/objects.json#/definitions/polls_poll",
+          "required": true
+        }
+      }
+    },
+    "polls_getBackgrounds_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../polls/objects.json#/definitions/polls_background"
+          },
+          "required": true
+        }
+      }
+    },
+    "polls_getById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../polls/objects.json#/definitions/polls_poll_extended",
+          "required": true
+        }
+      }
+    },
+    "polls_getVoters_fields_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../polls/objects.json#/definitions/polls_fields_voters"
+          },
+          "required": true
+        }
+      }
+    },
+    "polls_getVoters_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../polls/objects.json#/definitions/polls_voters"
+          },
+          "required": true
+        }
+      }
+    },
+    "polls_savePhoto_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../polls/objects.json#/definitions/polls_background",
+          "required": true
+        }
+      }
+    }
+  }
+}

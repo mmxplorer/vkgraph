@@ -1,0 +1,811 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - objects",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - objects",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "market_currency": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Currency ID",
+          "minimum": 0,
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Currency sign",
+          "required": true
+        },
+        "title": {
+          "type": "string",
+          "description": "Currency title",
+          "required": true
+        }
+      }
+    },
+    "market_global_search_filters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "$ref": "../base/objects.json#/definitions/base_city"
+        },
+        "country": {
+          "$ref": "../base/objects.json#/definitions/base_country"
+        }
+      }
+    },
+    "market_item_owner_info": {
+      "description": "Information about the group where the item is placed",
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "description": "Avatar of the group",
+          "type": "array",
+          "items": {
+            "$ref": "../base/objects.json#/definitions/base_image"
+          }
+        },
+        "name": {
+          "description": "Name of the group",
+          "type": "string"
+        },
+        "category": {
+          "description": "Category of the item or description of the group",
+          "type": "string"
+        },
+        "category_url": {
+          "description": "Link to the section of the group",
+          "type": "string"
+        },
+        "is_corporated_market": {
+          "description": "Is the group is VK corporated market",
+          "type": "boolean"
+        },
+        "market_type": {
+          "description": "Type of the market group",
+          "$ref": "../market/objects.json#/definitions/market_owner_type"
+        }
+      }
+    },
+    "market_item_promotion_info": {
+      "description": "Information about promotion of the market item",
+      "type": "object",
+      "properties": {
+        "is_available": {
+          "description": "Can the item be promoted?",
+          "type": "boolean"
+        }
+      }
+    },
+    "market_market_album": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Market album ID",
+          "minimum": 1,
+          "required": true
+        },
+        "owner_id": {
+          "type": "integer",
+          "description": "Market album owner's ID",
+          "entity": "owner",
+          "format": "int64",
+          "required": true
+        },
+        "title": {
+          "type": "string",
+          "description": "Market album title",
+          "required": true
+        },
+        "count": {
+          "type": "integer",
+          "description": "Items number",
+          "minimum": 0,
+          "required": true
+        },
+        "is_main": {
+          "type": "boolean",
+          "description": "Is album main for owner"
+        },
+        "is_hidden": {
+          "type": "boolean",
+          "description": "Is album hidden"
+        },
+        "photo": {
+          "$ref": "../photos/objects.json#/definitions/photos_photo"
+        },
+        "updated_time": {
+          "type": "integer",
+          "description": "Date when album has been updated last time in Unixtime",
+          "minimum": 0,
+          "required": true
+        },
+        "type": {
+          "type": "integer",
+          "description": "Type of album",
+          "enum": [
+            0,
+            1
+          ],
+          "enumNames": [
+            "market",
+            "market_services"
+          ]
+        },
+        "is_blur_enabled": {
+          "type": "boolean",
+          "description": "Is album needed to be blurred (18+) or not"
+        }
+      }
+    },
+    "market_market_category": {
+      "type": "object",
+      "$ref": "../market/objects.json#/definitions/market_market_category_nested"
+    },
+    "market_market_category_nested": {
+      "type": "object",
+      "properties": {
+        "inner_type": {
+          "type": "string",
+          "required": true,
+          "enum": [
+            "market_market_category_nested"
+          ],
+          "default": "market_market_category_nested"
+        },
+        "id": {
+          "type": "integer",
+          "description": "Category ID",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Category name",
+          "required": true
+        },
+        "is_v2": {
+          "type": "boolean",
+          "description": "Is v2 category",
+          "default": false
+        },
+        "parent": {
+          "$ref": "../market/objects.json#/definitions/market_market_category_nested"
+        }
+      }
+    },
+    "market_market_category_tree": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Category ID",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Category name",
+          "required": true
+        },
+        "icon_name": {
+          "type": "string",
+          "description": "Icon name"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "../market/objects.json#/definitions/market_market_category_tree"
+          }
+        },
+        "view": {
+          "$ref": "../market/objects.json#/definitions/market_market_category_tree_view"
+        },
+        "url": {
+          "type": "string",
+          "description": "SEO-friendly URL to page with category's items"
+        },
+        "seo_name": {
+          "type": "string",
+          "description": "SEO-friendly variant of category's name"
+        },
+        "page_title": {
+          "type": "string",
+          "description": "Title for category's page. Used for SEO"
+        },
+        "page_description": {
+          "type": "string",
+          "description": "Description for category's page. Used for SEO"
+        }
+      }
+    },
+    "market_market_category_tree_view": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "tab_root"
+          ],
+          "default": "tab_root"
+        },
+        "selected": {
+          "type": "boolean",
+          "default": false
+        },
+        "root_path": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "Category names from current category up to root category"
+          }
+        }
+      }
+    },
+    "market_market_item": {
+      "type": "object",
+      "properties": {
+        "access_key": {
+          "type": "string",
+          "description": "Access key for the market item"
+        },
+        "availability": {
+          "$ref": "../market/objects.json#/definitions/market_market_item_availability",
+          "required": true
+        },
+        "button_title": {
+          "type": "string",
+          "description": "Title for button for url"
+        },
+        "category": {
+          "$ref": "../market/objects.json#/definitions/market_market_category",
+          "required": true
+        },
+        "category_v2": {
+          "$ref": "../market/objects.json#/definitions/market_market_category"
+        },
+        "date": {
+          "type": "integer",
+          "description": "Date when the item has been created in Unixtime",
+          "minimum": 0
+        },
+        "description": {
+          "type": "string",
+          "description": "Item description",
+          "required": true
+        },
+        "external_id": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "description": "Item ID",
+          "minimum": 0,
+          "required": true
+        },
+        "is_favorite": {
+          "type": "boolean"
+        },
+        "owner_id": {
+          "type": "integer",
+          "entity": "owner",
+          "description": "Item owner's ID",
+          "format": "int64",
+          "required": true
+        },
+        "is_owner": {
+          "type": "boolean"
+        },
+        "is_adult": {
+          "type": "boolean"
+        },
+        "price": {
+          "$ref": "../market/objects.json#/definitions/market_price",
+          "required": true
+        },
+        "thumb_photo": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the preview image"
+        },
+        "title": {
+          "type": "string",
+          "description": "Item title",
+          "required": true
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to item"
+        },
+        "variants_grouping_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "is_main_variant": {
+          "type": "boolean"
+        },
+        "sku": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "stock_amount": {
+          "description": "Inventory balances",
+          "type": "integer"
+        },
+        "post_id": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Attach for post id"
+        },
+        "post_owner_id": {
+          "type": "integer",
+          "entity": "owner",
+          "format": "int64",
+          "description": "Attach for post owner id"
+        }
+      }
+    },
+    "market_market_item_availability": {
+      "type": "integer",
+      "description": "Information whether the item is available",
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "enumNames": [
+        "available",
+        "removed",
+        "unavailable"
+      ]
+    },
+    "market_market_item_basic": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Item ID",
+          "minimum": 0,
+          "required": true
+        },
+        "owner_id": {
+          "type": "integer",
+          "entity": "owner",
+          "description": "Item owner's ID",
+          "format": "int64",
+          "required": true
+        },
+        "title": {
+          "type": "string",
+          "description": "Item title",
+          "required": true
+        },
+        "price": {
+          "$ref": "../market/objects.json#/definitions/market_price",
+          "required": true
+        },
+        "thumb_photo": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the preview image"
+        },
+        "is_favorite": {
+          "type": "boolean"
+        }
+      }
+    },
+    "market_market_item_basic_with_group": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "../market/objects.json#/definitions/market_market_item_basic"
+        },
+        {
+          "properties": {
+            "is_group_verified": {
+              "type": "boolean"
+            },
+            "group_name": {
+              "type": "string"
+            },
+            "group_link": {
+              "type": "string"
+            },
+            "is_owner": {
+              "type": "boolean"
+            },
+            "is_adult": {
+              "type": "boolean"
+            }
+          }
+        }
+      ]
+    },
+    "market_market_item_full": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "../market/objects.json#/definitions/market_market_item"
+        },
+        {
+          "properties": {
+            "albums_ids": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "photos": {
+              "type": "array",
+              "items": {
+                "$ref": "../photos/objects.json#/definitions/photos_photo"
+              }
+            },
+            "can_comment": {
+              "description": "Information whether current use can comment the item",
+              "$ref": "../base/objects.json#/definitions/base_bool_int"
+            },
+            "show_comments": {
+              "description": "Information about whether to show the comments tab",
+              "$ref": "../base/objects.json#/definitions/base_bool_int"
+            },
+            "can_repost": {
+              "description": "Information whether current use can repost the item",
+              "$ref": "../base/objects.json#/definitions/base_bool_int"
+            },
+            "likes": {
+              "$ref": "../base/objects.json#/definitions/base_likes"
+            },
+            "reposts": {
+              "$ref": "../base/objects.json#/definitions/base_reposts_info"
+            },
+            "views_count": {
+              "type": "integer",
+              "description": "Views number"
+            },
+            "wishlist_item_id": {
+              "type": "integer",
+              "description": "Object identifier in wishlist of viewer"
+            },
+            "rating": {
+              "type": "number",
+              "description": "Rating of product",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "orders_count": {
+              "type": "integer",
+              "description": "Count of product orders",
+              "minimum": 0
+            },
+            "cancel_info": {
+              "description": "Information for cancel and revert order",
+              "$ref": "../base/objects.json#/definitions/base_link"
+            },
+            "user_agreement_info": {
+              "description": "User agreement info",
+              "type": "string"
+            },
+            "ad_id": {
+              "description": "Contains ad ID if it has",
+              "type": "integer"
+            },
+            "owner_info": {
+              "description": "Information about the group where the item is placed",
+              "$ref": "../market/objects.json#/definitions/market_item_owner_info"
+            },
+            "can_edit": {
+              "description": "Can the item be updated by current user?",
+              "type": "boolean"
+            },
+            "can_delete": {
+              "description": "Can item be deleted by current user?",
+              "type": "boolean"
+            },
+            "can_recover": {
+              "description": "Can item be restored by current user?",
+              "type": "boolean"
+            },
+            "can_show_convert_to_service": {
+              "description": "Can the item be converted from a product into a service?",
+              "type": "boolean"
+            },
+            "promotion": {
+              "description": "Information about promotion of the item",
+              "$ref": "../market/objects.json#/definitions/market_item_promotion_info"
+            },
+            "vk_pay_discount": {
+              "description": "The amount of the discount if VK Pay is used for payment",
+              "type": "integer"
+            }
+          }
+        }
+      ]
+    },
+    "market_order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 0,
+          "required": true
+        },
+        "group_id": {
+          "type": "integer",
+          "minimum": 0,
+          "entity": "groups",
+          "format": "int64",
+          "required": true
+        },
+        "user_id": {
+          "type": "integer",
+          "minimum": 0,
+          "entity": "owner",
+          "format": "int64",
+          "required": true
+        },
+        "display_order_id": {
+          "type": "string"
+        },
+        "date": {
+          "type": "integer",
+          "minimum": 0,
+          "required": true
+        },
+        "status": {
+          "type": "integer",
+          "minimum": 0,
+          "required": true
+        },
+        "items_count": {
+          "type": "integer",
+          "minimum": 0,
+          "required": true
+        },
+        "track_number": {
+          "type": "string"
+        },
+        "track_link": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "merchant_comment": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total_price": {
+          "$ref": "../market/objects.json#/definitions/market_price",
+          "required": true
+        },
+        "discount": {
+          "$ref": "../market/objects.json#/definitions/market_price"
+        },
+        "preview_order_items": {
+          "type": "array",
+          "description": "Several order items for preview",
+          "items": {
+            "$ref": "../market/objects.json#/definitions/market_order_item"
+          }
+        },
+        "cancel_info": {
+          "description": "Information for cancel and revert order",
+          "$ref": "../base/objects.json#/definitions/base_link"
+        },
+        "comment_for_user": {
+          "description": "Seller comment for user",
+          "type": "string"
+        },
+        "is_viewed_by_admin": {
+          "type": "boolean"
+        },
+        "date_viewed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "can_add_review": {
+          "type": "boolean",
+          "description": "Extended field. Can current viewer add review for at least one item in this order"
+        }
+      }
+    },
+    "market_order_item": {
+      "type": "object",
+      "properties": {
+        "owner_id": {
+          "type": "integer",
+          "entity": "owner",
+          "format": "int64",
+          "required": true
+        },
+        "item_id": {
+          "type": "integer",
+          "required": true
+        },
+        "price": {
+          "$ref": "../market/objects.json#/definitions/market_price",
+          "required": true
+        },
+        "quantity": {
+          "type": "integer",
+          "minimum": 0,
+          "required": true
+        },
+        "item": {
+          "$ref": "../market/objects.json#/definitions/market_market_item",
+          "required": true
+        },
+        "title": {
+          "type": "string"
+        },
+        "photo": {
+          "$ref": "../photos/objects.json#/definitions/photos_photo"
+        },
+        "variants": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "can_add_review": {
+          "type": "boolean",
+          "description": "Extended field. Can current viewer add review for this ordered item"
+        }
+      }
+    },
+    "market_owner_type": {
+      "description": "Type of the market group",
+      "type": "string",
+      "enum": [
+        "base",
+        "pro",
+        "disabled"
+      ]
+    },
+    "market_price": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "description": "Amount",
+          "required": true
+        },
+        "amount_to": {
+          "type": "string",
+          "description": "Amount to for price_type=2"
+        },
+        "price_type": {
+          "type": "integer",
+          "enum": [
+            0,
+            2,
+            3
+          ],
+          "enumNames": [
+            "exact",
+            "range",
+            "by_agreement"
+          ]
+        },
+        "price_unit": {
+          "type": "integer",
+          "enum": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "enumNames": [
+            "item",
+            "hour",
+            "m3",
+            "m2"
+          ]
+        },
+        "currency": {
+          "$ref": "../market/objects.json#/definitions/market_currency",
+          "required": true
+        },
+        "discount_rate": {
+          "type": "integer"
+        },
+        "old_amount": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text",
+          "required": true
+        },
+        "old_amount_text": {
+          "type": "string",
+          "description": "Textual representation of old price"
+        }
+      }
+    },
+    "market_property": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 0,
+          "required": true
+        },
+        "title": {
+          "type": "string",
+          "description": "Property name",
+          "required": true
+        },
+        "type": {
+          "type": "string",
+          "description": "Property type",
+          "enum": [
+            "text",
+            "color"
+          ]
+        },
+        "variants": {
+          "type": "array",
+          "items": {
+            "$ref": "../market/objects.json#/definitions/market_property_variant"
+          },
+          "required": true
+        }
+      }
+    },
+    "market_property_variant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 0,
+          "required": true
+        },
+        "title": {
+          "type": "string",
+          "description": "Property name",
+          "required": true
+        },
+        "value": {
+          "type": "string",
+          "description": "Property value corresponding to property type"
+        }
+      }
+    },
+    "market_services_view_type": {
+      "type": "integer",
+      "description": "Type of view. 1 - cards, 2 - rows",
+      "enum": [
+        1,
+        2
+      ],
+      "enumNames": [
+        "cards",
+        "rows"
+      ]
+    },
+    "market_upload_photo_data": {
+      "type": "object",
+      "properties": {
+        "photo_id": {
+          "type": "integer",
+          "description": "Photo ID",
+          "required": true
+        },
+        "photo": {
+          "$ref": "../photos/objects.json#/definitions/photos_photo"
+        }
+      },
+      "required": true
+    }
+  }
+}

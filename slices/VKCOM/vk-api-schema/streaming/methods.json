@@ -1,0 +1,82 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - methods",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - methods",
+  "termsOfService": "https://dev.vk.com/rules",
+  "methods": [
+    {
+      "name": "streaming.getServerUrl",
+      "description": "Allows to receive data for the connection to Streaming API.",
+      "access_token_type": [
+        "service"
+      ],
+      "responses": {
+        "response": {
+          "$ref": "../streaming/responses.json#/definitions/streaming_getServerUrl_response"
+        }
+      }
+    },
+    {
+      "name": "streaming.getStats",
+      "access_token_type": [
+        "service"
+      ],
+      "parameters": [
+        {
+          "name": "type",
+          "type": "string",
+          "enum": [
+            "prepared",
+            "received"
+          ]
+        },
+        {
+          "name": "interval",
+          "type": "string",
+          "default": "5m",
+          "enum": [
+            "1h",
+            "24h",
+            "5m"
+          ]
+        },
+        {
+          "name": "start_time",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0
+        },
+        {
+          "name": "end_time",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0
+        }
+      ],
+      "responses": {
+        "response": {
+          "$ref": "../streaming/responses.json#/definitions/streaming_getStats_response"
+        }
+      }
+    },
+    {
+      "name": "streaming.getStem",
+      "access_token_type": [
+        "service"
+      ],
+      "parameters": [
+        {
+          "name": "word",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "responses": {
+        "response": {
+          "$ref": "../streaming/responses.json#/definitions/streaming_getStem_response"
+        }
+      }
+    }
+  ]
+}

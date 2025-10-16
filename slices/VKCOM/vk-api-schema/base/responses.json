@@ -1,0 +1,53 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "base_bool_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../base/objects.json#/definitions/base_bool_int",
+          "required": true
+        }
+      }
+    },
+    "base_getUploadServer_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../base/objects.json#/definitions/base_upload_server",
+          "required": true
+        }
+      }
+    },
+    "base_ok_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "integer",
+          "default": 1,
+          "enum": [
+            1
+          ],
+          "enumNames": [
+            "ok"
+          ],
+          "required": true
+        }
+      }
+    },
+    "base_undefined_response": {
+      "type": "object",
+      "description": "Response schema is not defined yet",
+      "properties": {
+        "response": {
+          "type": "object",
+          "required": true
+        }
+      }
+    }
+  }
+}

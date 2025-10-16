@@ -1,0 +1,59 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - objects",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - objects",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "events_event_attach": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "address of event"
+        },
+        "button_text": {
+          "type": "string",
+          "description": "text of attach",
+          "required": true
+        },
+        "friends": {
+          "type": "array",
+          "description": "array of friends ids",
+          "items": {
+            "type": "integer",
+            "entity": "profiles",
+            "format": "int64"
+          },
+          "required": true
+        },
+        "id": {
+          "type": "integer",
+          "description": "event ID",
+          "minimum": 0,
+          "required": true,
+          "entity": "groups",
+          "format": "int64"
+        },
+        "is_favorite": {
+          "type": "boolean",
+          "description": "is favorite",
+          "required": true
+        },
+        "member_status": {
+          "$ref": "../groups/objects.json#/definitions/groups_group_full_member_status",
+          "description": "Current user's member status"
+        },
+        "text": {
+          "type": "string",
+          "description": "text of attach",
+          "required": true
+        },
+        "time": {
+          "type": "integer",
+          "description": "event start time"
+        }
+      }
+    }
+  }
+}

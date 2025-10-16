@@ -1,0 +1,117 @@
+/* stylelint-disable plugin/css-property-memory */
+/* stylelint-disable color-named */
+/* stylelint-disable declaration-property-value-disallowed-list */
+/* stylelint-disable declaration-no-important */
+/* stylelint-disable selector-max-id, selector-max-universal */
+
+/* Глобальные стили, которые не импортируются самими компонентами. */
+@import '../src/styles/themes.css';
+@import '../src/styles/constants.css';
+@import '../src/styles/dynamicTokens.css';
+@import '../src/styles/adaptivity.module.css';
+@import '../src/styles/common.css';
+
+@font-face {
+  font-family: Roboto;
+  font-style: italic;
+  font-weight: 400;
+  src: url('./font/Roboto-Italic.ttf') format('truetype');
+}
+@font-face {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  src: url('./font/Roboto-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  src: url('./font/Roboto-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 600;
+  src: url('./font/Roboto-Bold.ttf') format('truetype');
+}
+
+/* Зашиваем конкретный шрифт, чтобы от платформы к платформе шрифт сильно не отличался. */
+.vkuiTestAppRoot {
+  --vkui--font_family_base: 'Roboto' !important;
+  --vkui--font_family_accent: 'Roboto' !important;
+
+  /* DisplayTitle */
+  --vkui--font_display_title1--font_family--regular: 'Roboto' !important;
+  --vkui--font_display_title2--font_family--regular: 'Roboto' !important;
+  --vkui--font_display_title3--font_family--regular: 'Roboto' !important;
+  --vkui--font_display_title4--font_family--regular: 'Roboto' !important;
+
+  /* Caption */
+  --vkui--font_caption1--font_family--regular: 'Roboto' !important;
+  --vkui--font_caption1_caps--font_family--regular: 'Roboto' !important;
+  --vkui--font_caption2--font_family--regular: 'Roboto' !important;
+  --vkui--font_caption2_caps--font_family--regular: 'Roboto' !important;
+  --vkui--font_caption3--font_family--regular: 'Roboto' !important;
+  --vkui--font_caption3_caps--font_family--regular: 'Roboto' !important;
+
+  /* Footnote */
+  --vkui--font_footnote--font_family--regular: 'Roboto' !important;
+  --vkui--font_footnote_caps--font_family--regular: 'Roboto' !important;
+
+  /* Headline */
+  --vkui--font_headline1--font_family--regular: 'Roboto' !important;
+  --vkui--font_headline2--font_family--regular: 'Roboto' !important;
+
+  /* Paragraph */
+  --vkui--font_paragraph--font_family--regular: 'Roboto' !important;
+
+  /* Subhead */
+  --vkui--font_subhead--font_family--regular: 'Roboto' !important;
+
+  /* Text */
+  --vkui--font_text--font_family--regular: 'Roboto' !important;
+  --vkui--font_title1--font_family--regular: 'Roboto' !important;
+  --vkui--font_title2--font_family--regular: 'Roboto' !important;
+  --vkui--font_title3--font_family--regular: 'Roboto' !important;
+
+  font-family: var(--vkui--font_family_base);
+}
+
+/* см. packages/vkui/testing/e2e/constants.ts */
+.vkuiTestContent {
+  color: var(--playwright-text);
+}
+
+.vkuiTestTextEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#root {
+  position: relative;
+}
+
+/* Отключаем св-ва, которые могут повлиять на скриншот. */
+*,
+*::before,
+*::after {
+  font-family: var(--vkui--font_family_base);
+  caret-color: transparent !important;
+  transition: none !important;
+  animation: none !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+[class*='--light'] {
+  --playwright-background: white;
+  --playwright-border: gray;
+  --playwright-text: black;
+}
+
+[class*='--dark'] {
+  --playwright-background: black;
+  --playwright-border: gray;
+  --playwright-text: white;
+}

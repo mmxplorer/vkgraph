@@ -1,0 +1,35 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - objects",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - objects",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "owner_state": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "integer",
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "enumNames": [
+            "banned",
+            "adult",
+            "hidden",
+            "deleted",
+            "blacklisted"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "wiki text to describe user state"
+        }
+      }
+    }
+  }
+}

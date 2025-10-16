@@ -1,0 +1,88 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "utils_checkLink_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../utils/objects.json#/definitions/utils_link_checked",
+          "required": true
+        }
+      }
+    },
+    "utils_getLastShortenedLinks_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number of available results",
+              "minimum": 0,
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../utils/objects.json#/definitions/utils_last_shortened_link"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "utils_getLinkStats_extended_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../utils/objects.json#/definitions/utils_link_stats_extended",
+          "required": true
+        }
+      }
+    },
+    "utils_getLinkStats_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../utils/objects.json#/definitions/utils_link_stats",
+          "required": true
+        }
+      }
+    },
+    "utils_getServerTime_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "integer",
+          "description": "Time as Unixtime",
+          "required": true
+        }
+      }
+    },
+    "utils_getShortLink_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../utils/objects.json#/definitions/utils_short_link",
+          "required": true
+        }
+      }
+    },
+    "utils_resolveScreenName_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../utils/objects.json#/definitions/utils_domain_resolved",
+          "required": true
+        }
+      }
+    }
+  }
+}

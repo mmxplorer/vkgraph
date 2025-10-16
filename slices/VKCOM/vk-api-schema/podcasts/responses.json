@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "podcasts_searchPodcast_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "podcasts": {
+              "type": "array",
+              "items": {
+                "$ref": "../podcast/objects.json#/definitions/podcast_external_data"
+              },
+              "required": true
+            },
+            "results_total": {
+              "type": "integer",
+              "description": "Total amount of found results",
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "docs_add_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "integer",
+          "description": "Document ID",
+          "required": true
+        }
+      }
+    },
+    "docs_doc_upload_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "string",
+              "description": "Uploaded file data"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "docs_getById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../docs/objects.json#/definitions/docs_doc"
+          },
+          "required": true
+        }
+      }
+    },
+    "docs_getTypes_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../docs/objects.json#/definitions/docs_doc_types"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "docs_getUploadServer_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../base/objects.json#/definitions/base_upload_server",
+          "required": true
+        }
+      }
+    },
+    "docs_get_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../docs/objects.json#/definitions/docs_doc"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "docs_save_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "$ref": "../docs/objects.json#/definitions/docs_doc_attachment_type"
+            },
+            "audio_message": {
+              "$ref": "../messages/objects.json#/definitions/messages_audio_message"
+            },
+            "doc": {
+              "$ref": "../docs/objects.json#/definitions/docs_doc"
+            },
+            "graffiti": {
+              "$ref": "../messages/objects.json#/definitions/messages_graffiti"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "docs_search_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../docs/objects.json#/definitions/docs_doc"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}

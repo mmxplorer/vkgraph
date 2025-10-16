@@ -1,0 +1,55 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "streaming_getServerUrl_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "endpoint": {
+              "type": "string",
+              "description": "Server host"
+            },
+            "key": {
+              "type": "string",
+              "description": "Access key"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "streaming_getStats_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../streaming/objects.json#/definitions/streaming_stats"
+          },
+          "required": true
+        }
+      }
+    },
+    "streaming_getStem_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "stem": {
+              "type": "string",
+              "description": "part of a word responsible for its lexical meaning"
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}

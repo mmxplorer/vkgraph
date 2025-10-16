@@ -1,0 +1,10 @@
+node_modules/
+dist/
+styleguide/
+coverage/
+!packages/vkui
+tmp/
+storybook-static/
+out/
+_pagefind/
+.docgen/

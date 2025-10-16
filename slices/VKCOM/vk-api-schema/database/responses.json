@@ -1,0 +1,241 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "database_getChairs_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../base/objects.json#/definitions/base_object"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "database_getCitiesById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../database/objects.json#/definitions/database_city_by_id"
+          },
+          "required": true
+        }
+      }
+    },
+    "database_getCities_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../database/objects.json#/definitions/database_city"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "database_getCountriesById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../base/objects.json#/definitions/base_country"
+          },
+          "required": true
+        }
+      }
+    },
+    "database_getCountries_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../base/objects.json#/definitions/base_country"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "database_getFaculties_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../database/objects.json#/definitions/database_faculty"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "database_getMetroStationsById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../database/objects.json#/definitions/database_station"
+          },
+          "required": true
+        }
+      }
+    },
+    "database_getMetroStations_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../database/objects.json#/definitions/database_station"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "database_getRegions_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../database/objects.json#/definitions/database_region"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "database_getSchoolClasses_new_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../database/objects.json#/definitions/database_school_class"
+          },
+          "required": true
+        }
+      }
+    },
+    "database_getSchools_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../database/objects.json#/definitions/database_school"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "database_getUniversities_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "description": "Total number",
+              "required": true
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "../database/objects.json#/definitions/database_university"
+              },
+              "required": true
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}

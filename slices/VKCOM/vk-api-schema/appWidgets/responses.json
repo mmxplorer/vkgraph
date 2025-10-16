@@ -1,0 +1,87 @@
+{
+  "$schema": "../schema.json",
+  "version": "5.199",
+  "title": "VK API JSON Schema - responses",
+  "description": "Contains JSON Schema documents explaining the VK.COM API - responses",
+  "termsOfService": "https://dev.vk.com/rules",
+  "definitions": {
+    "appWidgets_getAppImageUploadServer_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "upload_url": {
+              "type": "string",
+              "description": "To upload an image, generate POST-request to upload_url with a file in photo field. Then call appWidgets.saveAppImage method"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "appWidgets_getAppImages_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../appWidgets/objects.json#/definitions/appWidgets_photos",
+          "required": true
+        }
+      }
+    },
+    "appWidgets_getGroupImageUploadServer_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "upload_url": {
+              "type": "string",
+              "description": "To upload an image, generate POST-request to upload_url with a file in photo field. Then call appWidgets.saveAppImage method"
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "appWidgets_getGroupImages_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../appWidgets/objects.json#/definitions/appWidgets_photos",
+          "required": true
+        }
+      }
+    },
+    "appWidgets_getImagesById_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "../appWidgets/objects.json#/definitions/appWidgets_photo"
+          },
+          "required": true
+        }
+      }
+    },
+    "appWidgets_saveAppImage_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../appWidgets/objects.json#/definitions/appWidgets_photo",
+          "required": true
+        }
+      }
+    },
+    "appWidgets_saveGroupImage_response": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "$ref": "../appWidgets/objects.json#/definitions/appWidgets_photo",
+          "required": true
+        }
+      }
+    }
+  }
+}

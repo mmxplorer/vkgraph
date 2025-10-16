@@ -1,0 +1,15 @@
+{
+  "mode": "file",
+  "out": "./docs",
+  "hideGenerator": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeNotExported": true,
+  "includeDeclarations": true,
+  "exclude": "**/+(*test*|node_modules)/**",
+  "includes": "node_modules/@vkontakte/vk-bridge",
+  "categoryOrder": ["Common", "*"],
+  "hideBreadcrumbs": true,
+  "namedAnchors": true,
+  "hideSources": true
+}

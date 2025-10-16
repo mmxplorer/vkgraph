@@ -1,0 +1,44 @@
+{
+  "$schema": "https://swc.rs/schema.json",
+  "exclude": ["\\.(test|spec|e2e|e2e-playground|stories|d)\\.[jt]sx?$", "testing/", "storybook/"],
+
+  "module": {
+    "type": "es6",
+    "resolveFully": true
+  },
+
+  "jsc": {
+    "externalHelpers": true,
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true
+    },
+    "transform": {
+      "react": {
+        "runtime": "automatic"
+      }
+    },
+    "target": "es2017",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["node_modules", "src/*"]
+    },
+
+    "experimental": {
+      "plugins": [
+        [
+          "swc-plugin-css-modules",
+          {
+            "generate_scoped_name": "vkui[folder]__[local]"
+          }
+        ],
+        [
+          "swc-plugin-transform-remove-imports",
+          {
+            "test": "\\.css$"
+          }
+        ]
+      ]
+    }
+  }
+}
